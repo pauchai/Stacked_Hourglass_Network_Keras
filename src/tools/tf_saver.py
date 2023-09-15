@@ -19,7 +19,7 @@ def main_tf_save(model_json, model_wegiths, output_model_path, output_format):
     net_model.load_weights(model_wegiths)
 
     for input in net_model.input_layers:
-        print 'input', input.name
+        print('input', input.name)
 
     # network output
     num_output = len(net_model.output_layers)

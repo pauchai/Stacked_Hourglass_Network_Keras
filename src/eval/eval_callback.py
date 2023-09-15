@@ -41,7 +41,7 @@ class EvalCallBack(keras.callbacks.Callback):
 
         acc = total_suc * 1.0 / (total_fail + total_suc)
 
-        print 'Eval Accuray ', acc, '@ Epoch ', epoch
+        print('Eval Accuray ', acc, '@ Epoch ', epoch)
 
         with open(os.path.join(self.get_folder_path(), 'val.txt'), 'a+') as xfile:
             xfile.write('Epoch ' + str(epoch) + ':' + str(acc) + '\n')
