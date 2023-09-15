@@ -1,0 +1,9 @@
+version: '3'
+services: 
+  tensorflow_for_lessons: 
+    image: tensorflow_for_lessons
+    volumes: 
+      - type: bind
+        source: C:\Users\pauk\VSCODE\Stacked_Hourglass_Network_Keras
+        target: /myapp
+    command: tail -f /dev/null

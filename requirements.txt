@@ -1,0 +1,12 @@
+numpy
+pandas
+matplotlib
+IPython
+seaborn
+gdown
+imageio==2.5
+opencv-python
+moviepy
+git+https://github.com/keras-team/keras-tuner.git
+autokeras
+scipy

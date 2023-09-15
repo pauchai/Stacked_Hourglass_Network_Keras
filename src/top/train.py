@@ -28,17 +28,16 @@ if __name__ == "__main__":
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpuID)
 
-    # TensorFlow wizardry
-    config = tf.ConfigProto()
+    # Создайте конфигурацию TensorFlow
+    config = tf.compat.v1.ConfigProto()
+    config.gpu_options.allow_growth = True  # Разрешить динамическое выделение памяти GPU
+    config.log_device_placement = True  # Выводить информацию о размещении операций на устройствах
 
-    # Don't pre-allocate memory; allocate as-needed
-    config.gpu_options.allow_growth = True
+    # Создайте сессию TensorFlow
+    session = tf.compat.v1.Session(config=config)
 
-    # Only allow a total of half the GPU memory to be allocated
-    config.gpu_options.per_process_gpu_memory_fraction = 1.0
-
-    # Create a session with the above options specified.
-    k.tensorflow_backend.set_session(tf.Session(config=config))
+    # Установите сессию TensorFlow в Keras
+    tf.compat.v1.keras.backend.set_session(session)
 
     if args.tiny:
         xnet = HourglassNet(num_classes=16, num_stacks=args.num_stack, num_channels=128, inres=(192, 192),
