@@ -60,6 +60,6 @@ class EvalCallBack(keras.callbacks.Callback):
         modelName = os.path.join(self.foldpath, "weights_epoch" + str(epoch) + ".h5")
         self.model.save_weights(modelName)
 
-        print "Saving model to ", modelName
+        print("Saving model to ", modelName)
 
         self.run_eval(epoch)

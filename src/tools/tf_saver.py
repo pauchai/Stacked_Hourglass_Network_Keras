@@ -51,7 +51,7 @@ def main_tf_save(model_json, model_wegiths, output_model_path, output_format):
             saver.save(sess, os.path.join(output_model_path, '.ckpt'))
             tf.train.write_graph(sess.graph_def, output_model_path, 'graph.pb')
 
-    print 'model saved to ', output_model_path
+    print('model saved to ', output_model_path)
 
 
 if __name__ == "__main__":
