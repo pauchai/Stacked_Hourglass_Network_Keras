@@ -9,4 +9,5 @@ opencv-python
 moviepy
 git+https://github.com/keras-team/keras-tuner.git
 autokeras
-scipy
+scikit-image
+#scipy==1.2.1

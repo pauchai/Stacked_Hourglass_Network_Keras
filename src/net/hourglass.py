@@ -15,6 +15,7 @@ import scipy.misc
 from data_process import normalize
 import numpy as np
 from eval_callback import EvalCallBack
+from keras.callbacks import TensorBoard
 
 
 class HourglassNet(object):
@@ -44,15 +45,16 @@ class HourglassNet(object):
                                             rot_flag=True, scale_flag=True, flip_flag=True)
 
         csvlogger = CSVLogger(
-            os.path.join(model_path, "csv_train_" + str(datetime.datetime.now().strftime('%H:%M')) + ".csv"))
+            os.path.join(model_path, "csv_train_" + str(datetime.datetime.now().strftime('%H:%M')) + ".csv")
+        )
         modelfile = os.path.join(model_path, 'weights_{epoch:02d}_{loss:.2f}.hdf5')
 
         checkpoint = EvalCallBack(model_path, self.inres, self.outres)
-
-        xcallbacks = [csvlogger, checkpoint]
-
+        tensorboard_callback = TensorBoard(log_dir = "../../data/tensorboard_logs")
+        xcallbacks = [csvlogger, checkpoint, tensorboard_callback]
+        
         self.model.fit_generator(generator=train_gen, steps_per_epoch=train_dataset.get_dataset_size() // batch_size,
-                                 epochs=epochs, callbacks=xcallbacks)
+                                 epochs=epochs, callbacks = xcallbacks)
 
     def resume_train(self, batch_size, model_json, model_weights, init_epoch, epochs):
 

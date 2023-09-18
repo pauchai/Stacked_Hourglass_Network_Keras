@@ -2,9 +2,15 @@ import os
 import numpy as np
 from random import shuffle
 import scipy.misc
+from PIL import Image
 import json
 import data_process
 import random
+from scipy_fixing import my_imrotate, my_imread
+
+scipy.misc.imrotate = my_imrotate
+scipy.misc.imread = my_imread
+
 
 
 class MPIIDataGen(object):
@@ -39,7 +45,7 @@ class MPIIDataGen(object):
         return len(self.anno)
 
     def get_color_mean(self):
-        mean = np.array([0.4404, 0.4440, 0.4327], dtype=np.float)
+        mean = np.array([0.4404, 0.4440, 0.4327], dtype=float)
         return mean
 
     def get_annotations(self):
@@ -51,8 +57,8 @@ class MPIIDataGen(object):
         Input:  batch_size * inres  * Channel (3)
         Output: batch_size * oures  * nparts
         '''
-        train_input = np.zeros(shape=(batch_size, self.inres[0], self.inres[1], 3), dtype=np.float)
-        gt_heatmap = np.zeros(shape=(batch_size, self.outres[0], self.outres[1], self.nparts), dtype=np.float)
+        train_input = np.zeros(shape=(batch_size, self.inres[0], self.inres[1], 3), dtype=float)
+        gt_heatmap = np.zeros(shape=(batch_size, self.outres[0], self.outres[1], self.nparts), dtype=float)
         meta_info = list()
 
         if not self.is_train:
@@ -86,7 +92,7 @@ class MPIIDataGen(object):
     def process_image(self, sample_index, kpanno, sigma, rot_flag, scale_flag, flip_flag):
         imagefile = kpanno['img_paths']
         image = scipy.misc.imread(os.path.join(self.imgpath, imagefile))
-
+        
         # get center
         center = np.array(kpanno['objpos'])
         joints = np.array(kpanno['joint_self'])

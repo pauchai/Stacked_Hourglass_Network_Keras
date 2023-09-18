@@ -1,5 +1,13 @@
 import numpy as np
 import scipy
+from scipy.ndimage import zoom, rotate
+import scipy.misc
+from  scipy_fixing import my_imresize, my_imrotate
+
+
+scipy.misc.imresize = my_imresize
+scipy.misc.imrotate = my_imrotate
+
 
 
 def get_transform(center, scale, res, rot=0):

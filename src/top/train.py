@@ -2,6 +2,7 @@ import sys
 
 sys.path.insert(0, "../data_gen/")
 sys.path.insert(0, "../net/")
+sys.path.insert(0, "../tools/")
 
 import argparse
 import os
